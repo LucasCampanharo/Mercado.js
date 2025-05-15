@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Carrinho</title>
+    <style>
+      body {
+        font: normal 18pt "Courier New";
+        background-color: beige;
+        padding: 2em;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        background: #f0f0f0;
+        margin-bottom: 0.5em;
+        padding: 0.5em;
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      button {
+        font-size: 14pt;
+        margin-left: 1em;
+        background-color: #ff6961;
+        color: white;
+        border: none;
+        padding: 0.3em 0.7em;
+        cursor: pointer;
+      }
+
+      #limpar {
+        margin-top: 1em;
+        font-size: 16pt;
+        padding: 0.5em 1em;
+        background-color: #a52a2a;
+        color: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      #finalizar {
+        display: flex;
+        justify-self: end;
+        font-size: 16pt;
+        padding: 0.5em 1em;
+        background-color: #a52a2a;
+        color: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Seu Carrinho</h1>
+    <ul id="lista-carrinho"></ul>
+    <h3 id="total">Total: R$ 0.00</h3>
+
+    <div>
+      <button id="limpar" onclick="limparCarrinho()">Limpar Carrinho</button>
+      <button id="finalizar" onclick="finalizarCompra()">
+        Finalizar Compra
+      </button>
+    </div>
+
+    <script>
+      let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      const lista = document.getElementById("lista-carrinho");
+      const totalElement = document.getElementById("total");
+
+      function salvarCarrinho() {
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      }
+
+      function renderizarCarrinho() {
+        lista.innerHTML = "";
+        let total = 0;
+
+        if (carrinho.length === 0) {
+          lista.innerHTML = "<li>Nenhum item no carrinho.</li>";
+          totalElement.innerText = "Total: R$ 0.00";
+          return;
+        }
+
+        carrinho.forEach((produto, index) => {
+          const li = document.createElement("li");
+
+          if (typeof produto === "string") {
+            li.innerHTML = `
+          ${produto} <button onclick="removerItem(${index})">Remover</button>
+        `;
+          } else {
+            li.innerHTML = `
+          ${produto.nome} - R$ ${produto.preco.toFixed(2)}
+          <button onclick="removerItem(${index})">Remover</button>
+        `;
+            total += produto.preco;
+          }
+
+          lista.appendChild(li);
+        });
+
+        totalElement.innerText = `Total: R$ ${total.toFixed(2)}`;
+      }
+
+      function removerItem(index) {
+        carrinho.splice(index, 1);
+        salvarCarrinho();
+        renderizarCarrinho();
+      }
+
+      function limparCarrinho() {
+        if (confirm("Tem certeza que deseja limpar o carrinho?")) {
+          carrinho = [];
+          salvarCarrinho();
+          renderizarCarrinho();
+        }
+      }
+
+      function finalizarCompra() {
+        window.location.href = "TelaFinal.html";
+      }
+
+      renderizarCarrinho();
+    </script>
+  </body>
+</html>

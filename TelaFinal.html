@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tela Final</title>
+    <style>
+      body {
+        font: normal 20pt "Courier New";
+        background-color: beige;
+      }
+
+      .header {
+        background-color: blanchedalmond;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1em;
+        border: 1px solid black;
+        border-radius: 30%;
+      }
+
+      .button {
+        display: flex;
+        justify-self: end;
+        font: bold 18px "Courier New";
+        padding: 0.5em;
+        background-color: #a52a2a;
+        color: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .linha {
+        background-color: lightgoldenrodyellow;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 5%;
+        height: 1.5em;
+        width: 30%;
+        box-sizing: border-box;
+        border: 1px solid black;
+        padding: 15px;
+      }
+
+      .select {
+        display: flex;
+        justify-self: start;
+        width: 30%;
+        font: bold 18px "Courier New";
+        padding: 0.5em;
+        background-color: #a52a2a;
+        color: white;
+        border: 1px solid black;
+        cursor: pointer;
+      }
+
+      .buttonfinal {
+        display: flex;
+        justify-self: start;
+        font: bold 18px "Courier New";
+        padding: 0.5em;
+        background-color: #a52a2a;
+        color: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .agradecimento {
+        font: bold 20pt "Comic Sans";
+        display: flex;
+        justify-content: center;
+        margin-top: 2%;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Finalizando compra</h1>
+    </header>
+
+    <div>
+      <h3 class="linha" id="total">Total da compra:</h3>
+    </div>
+
+    <div>
+      <select class="select" id="selecionaveis">
+        <option value="">Selecione uma forma de pagamento</option>
+        <option value="debito">Débito</option>
+        <option value="credito">Crédito</option>
+        <option value="pix">Pix</option>
+      </select>
+    </div>
+
+    <div>
+      <button class="button" onclick="pedidoCompleto()">
+        Ver pedido completo
+      </button>
+    </div>
+
+    <div>
+      <button class="buttonfinal" onclick="finalizar()">Finalizar</button>
+    </div>
+    <div class="agradecimento">
+      <h1 id="agradecimentos" style="display: none">
+        OBRIGADO POR COMPRAR CONOSCO!
+      </h1>
+    </div>
+
+    <script>
+      function finalizar() {
+        const formaPagamento = document.getElementById("selecionaveis").value;
+
+        if (formaPagamento !== "") {
+          document.getElementById("agradecimentos").style.display = "block";
+        } else {
+          alert("Por favor, selecione uma forma de pagamento.");
+        }
+      }
+
+      function pedidoCompleto() {
+        window.location.href = "teste.html";
+      }
+    </script>
+  </body>
+</html>
