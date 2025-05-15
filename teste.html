@@ -7,22 +7,97 @@
     <style>
       body {
         font: arial 16pt;
-        background-color: lightblue;
+        background-color: beige;
       }
 
-      header {
-        background-color: lightcyan;
-        display: flex;
-        justify-content: center;
-        padding: 0 1em;
+      h1 {
+        text-align: center;
+        color: green;
+        background-color: bisque;
         border: 1px solid black;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 1em;
+      }
+
+      li {
+        background: #f0f0f0;
+        margin-bottom: 0.5em;
+        padding: 0.5em;
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .total {
+        font-weight: bold;
+        font-size: 20pt;
+        margin-top: 2em;
+        text-align: center;
+      }
+
+      .linha {
+        border: 1px solid black;
+        background-color: lightgoldenrodyellow;
+        padding: 1em;
+      }
+
+      .voltar {
+        display: flex;
+        justify-self: end;
+        font-size: 16pt;
+        padding: 0.5em 1em;
+        margin-top: 1%;
+        background-color: #a52a2a;
+        color: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Teste</h1>
-      <p>Teste2</p>
-    </header>
+    <h1>RESUMO DO PEDIDO</h1>
+
+    <ul id="lista-itens"></ul>
+
+    <div class="linha total" id="total">Total da compra:</div>
+
+    <button class="voltar" onclick="voltarInicio()">
+      Voltar para o ínicio
+    </button>
+
+    <script>
+      const itens = JSON.parse(localStorage.getItem("itensCompra")) || [];
+      const total = localStorage.getItem("totalCompra");
+      const lista = document.getElementById("lista-itens");
+      const totalEl = document.getElementById("total");
+
+      if (itens.length === 0) {
+        lista.innerHTML = "<li>Nenhum item encontrado.</li>";
+        totalEl.innerText = "Total da compra: R$ 0.00";
+      } else {
+        itens.forEach((produto) => {
+          const li = document.createElement("li");
+          li.textContent = `${produto.nome} - R$ ${produto.preco.toFixed(2)}`;
+          lista.appendChild(li);
+        });
+        totalEl.innerText = `Total da compra: R$ ${parseFloat(total).toFixed(
+          2
+        )}`;
+      }
+
+      function voltarInicio() {
+        window.location.href = "SistemaMercado.html";
+      }
+
+      localStorage.removeItem("carrinho");
+      localStorage.removeItem("totalCompra");
+      localStorage.removeItem("itensCompra");
+      localStorage.removeItem("ultimoAdicionado");
+    </script>
   </body>
 </html>

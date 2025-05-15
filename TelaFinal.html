@@ -39,8 +39,8 @@
         align-items: center;
         justify-content: space-between;
         margin-top: 5%;
-        height: 1.5em;
-        width: 30%;
+        height: 2.5em;
+        width: 33%;
         box-sizing: border-box;
         border: 1px solid black;
         padding: 15px;
@@ -112,6 +112,14 @@
     </div>
 
     <script>
+      const total = localStorage.getItem("totalCompra");
+
+      if (total) {
+        document.getElementById(
+          "total"
+        ).innerText = `Total da compra: R$ ${parseFloat(total).toFixed(2)}`;
+      }
+
       function finalizar() {
         const formaPagamento = document.getElementById("selecionaveis").value;
 
@@ -123,7 +131,13 @@
       }
 
       function pedidoCompleto() {
-        window.location.href = "teste.html";
+        const formaPagamento = document.getElementById("selecionaveis").value;
+
+        if (formaPagamento !== "") {
+          window.location.href = "teste.html";
+        } else {
+          alert("Por favor, selecione uma forma de pagamento.");
+        }
       }
     </script>
   </body>

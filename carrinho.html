@@ -126,7 +126,18 @@
       }
 
       function finalizarCompra() {
-        window.location.href = "TelaFinal.html";
+        const totalTexto = document.getElementById("total").innerText;
+        const valor = parseFloat(
+          totalTexto.replace("Total: R$ ", "").replace(",", ".")
+        );
+
+        if (valor === 0) {
+          alert("Seu carrinho está vazio.");
+        } else {
+          localStorage.setItem("totalCompra", valor.toFixed(2));
+          localStorage.setItem("itensCompra", JSON.stringify(carrinho));
+          window.location.href = "TelaFinal.html";
+        }
       }
 
       renderizarCarrinho();
