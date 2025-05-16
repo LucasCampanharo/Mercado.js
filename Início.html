@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Início</title>
+    <style>
+      body {
+        font: normal 20pt "Courier New";
+        background: linear-gradient(#bbe9db, #6bcfb1);
+      }
+
+      header {
+        background-color: #aeccc6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0 1em;
+        border-top-right-radius: 30%;
+        border-bottom-left-radius: 30%;
+        border: #648b84 5px double;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body></body>
+  <header>
+    <h1 onclick="irparaProdutos()" title="Clique para acessar os produtos.">
+      MERCADINHO SASA
+    </h1>
+  </header>
+  <script>
+    function irparaProdutos() {
+      window.location.href = "SistemaMercado.html";
+    }
+  </script>
+</html>
